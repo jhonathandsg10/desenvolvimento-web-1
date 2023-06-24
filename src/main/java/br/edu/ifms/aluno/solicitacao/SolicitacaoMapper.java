@@ -4,6 +4,8 @@
  */
 package br.edu.ifms.aluno.solicitacao;
 
+import br.edu.ifms.aluno.cliente.ClienteMapper;
+import br.edu.ifms.aluno.servico.ServicoMapper;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -15,7 +17,9 @@ import org.mapstruct.Mapping;
  *
  * @author 02709564173
  */
-@Mapper
+@Mapper(
+        uses={ClienteMapper.class,ServicoMapper.class}
+)
 public interface SolicitacaoMapper {
 
     public static final SolicitacaoMapper INSTANCE = Mappers
@@ -29,5 +33,6 @@ public interface SolicitacaoMapper {
     public void update(SolicitacaoForm dto, @MappingTarget Solicitacao entity);
 
     @Mapping (target = "id", ignore = true)
+    @Mapping (target = "dataEmissao", expression = "java(LocalDateTime.now())")
     public Solicitacao toEntity(SolicitacaoForm form);
 }

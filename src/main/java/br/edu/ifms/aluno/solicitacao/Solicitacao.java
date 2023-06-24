@@ -33,7 +33,7 @@ public class Solicitacao {
     @GeneratedValue
     private Long id; 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dataEmissao;
+    private LocalDateTime dataEmissao ;
          @ManyToOne 
          private Cliente cliente;
          @ManyToOne

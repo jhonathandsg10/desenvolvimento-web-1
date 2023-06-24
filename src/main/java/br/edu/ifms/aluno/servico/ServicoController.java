@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/servico")
 public class ServicoController {
+
     @Autowired // faz o Spring criar uma instância de ServicoService
     private ServicoService service;
 
@@ -33,6 +34,19 @@ public class ServicoController {
         List<Servico> listaEntity = service.listar();
         List<ServicoDto> listaDto = ServicoMapper.INSTANCE.map(listaEntity);
         return ResponseEntity.ok(listaDto);
+    }
+
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity<ServicoDto> obterPorId(@PathVariable Long id) {
+        Servico entity = service.buscarPorId(id);
+
+        if (entity != null) {
+            ServicoDto dto = ServicoMapper.INSTANCE.toDto(entity);
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping

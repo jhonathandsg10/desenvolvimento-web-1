@@ -46,4 +46,6 @@ public class ServicoService {
         Servico entity = buscarPorId(id);
         repository.delete(entity);
     }
+
+    
 }

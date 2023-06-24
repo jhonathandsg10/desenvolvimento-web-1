@@ -44,6 +44,18 @@ public class ClienteController {
         ClienteDto dto = ClienteMapper.INSTANCE.toDto(entity);
         return ResponseEntity.accepted().body(dto);
     }
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity<ClienteDto> obterPorId(@PathVariable Long id) {
+        Cliente entity = service.buscarPorId(id);
+
+        if (entity != null) {
+            ClienteDto dto = ClienteMapper.INSTANCE.toDto(entity);
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PutMapping("/{id}")
     @Transactional

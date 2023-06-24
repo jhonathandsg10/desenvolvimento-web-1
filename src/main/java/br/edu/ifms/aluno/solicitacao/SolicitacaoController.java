@@ -44,6 +44,18 @@ public class SolicitacaoController {
         SolicitacaoDto dto = SolicitacaoMapper.INSTANCE.toDto(entity);
         return ResponseEntity.accepted().body(dto);
     }
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity<SolicitacaoDto> obterPorId(@PathVariable Long id) {
+        Solicitacao entity = service.buscarPorId(id);
+
+        if (entity != null) {
+            SolicitacaoDto dto = SolicitacaoMapper.INSTANCE.toDto(entity);
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PutMapping("/{id}")
     @Transactional
